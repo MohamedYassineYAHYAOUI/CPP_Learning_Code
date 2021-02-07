@@ -20,6 +20,10 @@ Exemple : Si `c` est un `std::vector`, alors `it` peut être invalidé en cas de
 
 3. Quelle est la différence entre les fonctions `push_back` et `emplace_back` de la classe `std::vector<std::string>` ?
 
+void emplace_back( Args&&... args ); prends les arguments, construit l'object et l'insére dans le vector
+void push_back( const T& value ); insére l'objet value dans le vector
+
+
 4. Dans le code suivant, la classe `RelativePoint` modélise un point en 2D, dont la position est relative à celle d'un point d'origine.
 Pourquoi est-ce que l'expression `std::vector<RelativePoint>(3)` ne compile pas, alors que `std::vector<AbsolutePoint>(3)` compile ?\
 Ajoutez ce qu'il manque à la classe `RelativePoint` pour faire compiler le code précédent.
