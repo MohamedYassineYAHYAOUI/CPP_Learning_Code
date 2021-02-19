@@ -4,6 +4,19 @@
 
 class Driver
 {
+    public:
+    void pass_car_licence_exam()
+    {
+        _has_car_licence = true; 
+    }
+
+    bool has_car_licence() const
+    {
+        return _has_car_licence;
+    }
+
+private:
+    bool _has_car_licence = false;
 };
 
 class Vehicle
@@ -20,7 +33,7 @@ public:
         std::cerr << "Not implemented" << std::endl;
         return 0u;
     }
-
-private:
-    const Driver& _driver;
+protected :
+   const Driver& _driver;
+ 
 };
