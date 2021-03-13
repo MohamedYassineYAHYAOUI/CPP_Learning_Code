@@ -14,7 +14,12 @@ public:
         : _name { name }
     {
     }
-
+    /*
+    Trainer(std::string_view name, PC pc,  Pokedex pokedex)
+        : _name { name } , _pc {pc} , _pokedex {pokedex} 
+    {
+    }
+    */
     int get_level() const
     {
         for (auto* t : _team)
@@ -82,7 +87,23 @@ public:
         }
     }
 
+    void capture(Pokemon* pokemon, bool chance_of_capture){
+        _pokedex.add(pokemon);
+        if (!collect(pokemon))
+        {
+            _pc.transfer(pokemon);
+        }
+    }
+
+    bool has_duplicate(const Pokemon* pokemon){
+        return _pokedex.has_duplicate(pokemon);
+    }
+
 private:
     const std::string _name;
-    std::array<Pokemon*, 6> _team;
+
+    PC _pc;
+    Pokedex _pokedex;
+    std::array<Pokemon*, 6> _team {nullptr};
+
 };

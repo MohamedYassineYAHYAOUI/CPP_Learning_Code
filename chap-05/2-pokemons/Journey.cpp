@@ -7,6 +7,7 @@
 
 #include <cstdlib>
 #include <ctime>
+#include <<memory>
 
 Pokemon* random_encounter()
 {
@@ -30,17 +31,22 @@ bool try_capture(const Trainer& trainer, const Pokemon* encounter)
     return (rand() % 3) * trainer.get_level() > encounter->get_level();
 }
 
+
+
 int main()
 {
-    srand(static_cast<unsigned int>(time(nullptr)));
+
+
 
     PokeCenter pokecenter;
 
+    /*
     PC pc1;
     PC pc2;
     PC pc3;
-
-    Trainer red { "Ash" };
+    */
+   
+    Trainer red { "Ash"};
     Trainer blue { "Blue" };
     Trainer some_guy { "Whatever" };
     Trainer some_girl { "Nevermind" };
@@ -58,26 +64,18 @@ int main()
     {
         auto* encounter = random_encounter();
 
-        if (!red_pokedex.has_duplicate(encounter) && try_capture(red, encounter))
+        
+
+        if (!red.has_duplicate(encounter) && try_capture(red, encounter))
         {
-            red_pokedex.add(encounter);
-            if (!red.collect(encounter))
-            {
-                pc1.transfer(encounter);
-            }
+            red.capture(encounter, try_capture(red, encounter));
         }
         else if (try_capture(blue, encounter))
         {
-            blue_pokedex.add(encounter);
-            if (!blue.collect(encounter))
-            {
-                pc2.transfer(encounter);
-            }
+            blue.capture(encounter, try_capture(blue, encounter));
         }
         else
         {
-            red.remove(encounter);
-            blue.remove(encounter);
             delete encounter;
         }
     }
@@ -88,10 +86,11 @@ int main()
     for (auto* pokemon : traumatized)
     {
         red_pokedex.remove(pokemon);
-        blue_pokedex.remove(pokemon);
         red.remove(pokemon);
-        blue.remove(pokemon);
         pc1.remove(pokemon);
+
+        blue_pokedex.remove(pokemon);       
+        blue.remove(pokemon);
         pc2.remove(pokemon);
     }
 
